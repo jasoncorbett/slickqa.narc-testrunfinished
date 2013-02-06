@@ -14,7 +14,7 @@ setup(
     license="License :: OSI Approved :: Apache Software License",
     long_description=open('README.txt').read(),
 	py_modules=['narc_testrunfinished',],
-    install_requires=['slickqa-narc>=1.0.6', 'slickqa>=2.0.14'],
+    install_requires=['slickqa-narc>=1.0.7', 'slickqa>=2.0.15'],
     author="Slick Developers",
     url="http://code.google.com/p/slickqa",
     entry_points={

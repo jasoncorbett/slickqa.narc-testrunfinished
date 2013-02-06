@@ -6,7 +6,7 @@ import logging
 from kombu import Queue, Consumer
 from kombu.transport.base import Message
 from narc.amqp import AMQPConnection
-from slickqa import SlickConnection, Testrun, micromodels
+from slickqa import SlickConnection, Testrun, micromodels, RunStatus
 
 class TestrunUpdateMessage(micromodels.Model):
     before = micromodels.ModelField(Testrun)
@@ -35,6 +35,6 @@ class TestrunFinishedPlugin(object):
             self.logger.debug("No results for testrun {}: {}", update.before.id, update.before.to_json())
         elif hasattr(update.before.summary.resultsByStatus, 'NO_RESULT') and update.before.summary.resultsByStatus.NO_RESULT > 0 and update.after.summary.resultsByStatus.NO_RESULT == 0:
             self.logger.debug("Looks like testrun with id {} is now finished, I will mark it as such.", update.after.id)
-            update.after.finished = True
+            update.after.state = RunStatus.FINISHED
             self.slick.testruns(update.after).update()
 
